@@ -482,6 +482,8 @@ function setHash(hash) {
 
 function togglePullButtons(disable, customTimer) {
 	if (!disable && (pbCodeRunning || pbTimerRunning)) return;
+	if("mh" == currAccount.name)
+		customTimer = 5 * 1000; // 5 seconds
 	if (customTimer == null || customTimer <= 0)
 		customTimer = globalButtonDisableTime;
 
