@@ -482,10 +482,8 @@ function setHash(hash) {
 
 function togglePullButtons(disable, customTimer) {
 	if (!disable && (pbCodeRunning || pbTimerRunning)) return;
-	if("mh" == currAccount.name)
-		customTimer = 5 * 1000; // 5 seconds
 	if (customTimer == null || customTimer <= 0)
-		customTimer = globalButtonDisableTime;
+		customTimer = ("mh" == currAccount.name) ? 5 * 1000 : globalButtonDisableTime;
 
 	for (let name of pbNames) {
 		const button = document.getElementById(`${name}PullButton`);
@@ -519,7 +517,10 @@ function togglePullButtons(disable, customTimer) {
 function disablePullButtons(customTimer) {
 	pbCodeRunning = true;
 
-	if (!customTimer || customTimer <= 0) customTimer = globalButtonDisableTime;
+	if("mh" == currAccount.name)
+		customTimer = 5 * 1000; // 5 seconds
+	if (!customTimer || customTimer <= 0)
+		customTimer = ("mh" == currAccount.name) ? 5 * 1000 : globalButtonDisableTime;
 	const cooldownEnd = Date.now() + customTimer;
 	ls_setGlobal_num(LSKEY_pullButtonCooldown, cooldownEnd, 0);
 
